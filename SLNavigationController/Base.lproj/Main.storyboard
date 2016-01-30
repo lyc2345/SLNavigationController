@@ -63,12 +63,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="adL-4R-5Od" customClass="SLNavigationBar" customModule="SLNavigationController" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="barOpacityColor">
-                                <color key="value" red="0.2116240261" green="0.40421094790000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="sStatusBarStyle" value="NO"/>
-                        </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

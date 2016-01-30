@@ -7,4 +7,6 @@ Set you UINavigationController Class as SLNavigationController, so as UINavigati
 
 Now you can modify your UINavigation Background Color, Transparent, Status Bar Color.
 
+[[https://github.com/lyc2345/SLNavigationController/blob/master/img/Inspectable.jpg|alt=Inspectable]]
+
 Please enjoy!
