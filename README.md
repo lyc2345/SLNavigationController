@@ -9,4 +9,6 @@ Now you can modify your UINavigation Background Color, Transparent, Status Bar C
 
 [[https://github.com/lyc2345/SLNavigationController/blob/master/Inspectable.jpg|alt=Inspectable]]
 
+[[https://github.com/lyc2345/SLNavigationController/blob/master/Inspectable.jpg]]
+
 Please enjoy!
