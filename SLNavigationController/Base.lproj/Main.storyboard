@@ -37,10 +37,10 @@
             </objects>
             <point key="canvasLocation" x="870" y="1027"/>
         </scene>
-        <!--View Controller-->
+        <!--Second View Controller-->
         <scene sceneID="0fd-3d-TbK">
             <objects>
-                <viewController id="kOU-Pi-R6p" sceneMemberID="viewController">
+                <viewController id="kOU-Pi-R6p" customClass="SecondViewController" customModule="SLNavigationController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3WE-2d-cnc"/>
                         <viewControllerLayoutGuide type="bottom" id="GXc-fn-NC4"/>
@@ -63,6 +63,17 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="adL-4R-5Od" customClass="SLNavigationBar" customModule="SLNavigationController" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="0.92584145949999996" blue="0.44006347899999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.01176470588" green="0.1176470588" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.45753880930000002" green="1" blue="0.83303150100000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="status">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="transparentBar" value="NO"/>
+                        </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

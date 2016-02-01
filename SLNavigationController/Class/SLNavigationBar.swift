@@ -10,79 +10,95 @@ import UIKit
 
 protocol SLNavigationBarDelegate {
     
-    func makeStatusBar(option: Bool)
-
+    //func makeStatusBarStyle(style: Bool)
+    func makeStatusBarStyle(style: Int)
+    
 }
 
-let kDefaultNavigationBarAlpha: Float = 0.70
+let kTransparentNavigationBarAlpha: CGFloat = 0.0
+let kDefaultNavigationBarAlpha: CGFloat = 1.0
 
 let kDefaultColorLayerOpacity: Float = 0.5
 let kSpaceToCoverStatusBars: Float = 20.0
 
+enum StatusStyle: Int {
+    
+    case Light = 0
+    case Dark = 1
+}
+
+@IBDesignable
 class SLNavigationBar: UINavigationBar {
     
     var slNavigationDelegate: SLNavigationBarDelegate?
     
-    var overrideOpacity: Bool!
-    
     var colorLayer: CALayer!
+    var style: StatusStyle = .Light
     
-    @IBInspectable var sStatusBarStyle: Bool = false {
-        
-        didSet {
-            if sStatusBarStyle == true {
-                slNavigationDelegate?.makeStatusBar(true)
-            } else {
-                slNavigationDelegate?.makeStatusBar(false)
-            }
+    @IBInspectable var status: Int {
+    
+        get {
+            return style.rawValue
         }
+        
+        set (styleIndex) {
+            style = StatusStyle(rawValue: styleIndex) ?? . Light
+            slNavigationDelegate?.makeStatusBarStyle(style.rawValue)
+            print(style.rawValue)
+        }
+        /*
+        didSet {
+            
+            switch status {
+            case .Light:
+                slNavigationDelegate?.makeStatusBarStyle(0)
+            case .Dark:
+                slNavigationDelegate?.makeStatusBarStyle(1)
+            }
+            /*
+            slNavigationDelegate?.makeStatusBarStyle(status)
+            */
+            print("status bar: \(status)")
+        }*/
     }
     
-    @IBInspectable var barOpacity: Bool? {
+    @IBInspectable var transparentBar: Bool = false {
         
         didSet {
-            if barOpacity == nil {
-                barOpacity = false
-            }
-        }
-    }
-
-    @IBInspectable var barOpacityColor: UIColor? {
-        
-        didSet {
-            if barOpacity == false {
-                
-                
+            if transparentBar == true {
+                // http://sketchytech.blogspot.tw/2014/08/unsafe-pointers-in-swift-first-look.html
+                // .alloc(1) allocate memory for one object
                 let red = UnsafeMutablePointer<CGFloat>.alloc(1)
                 let green = UnsafeMutablePointer<CGFloat>.alloc(1)
                 let blue = UnsafeMutablePointer<CGFloat>.alloc(1)
                 let alpha = UnsafeMutablePointer<CGFloat>.alloc(1)
-                barOpacityColor?.getRed(red, green: green, blue: blue, alpha: alpha)
-                
-                // http://stackoverflow.com/questions/33525608/how-to-access-unsafemutablepointer-struct-member
+                barTintColor?.getRed(red, green: green, blue: blue, alpha: alpha)
                 let afterRed = red.memory
                 let afterGreen = green.memory
                 let afterBlue = blue.memory
+                //let afterAlpha = alpha.memory
+                let afterBarTintColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: kTransparentNavigationBarAlpha)
                 
-                let alphaedColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: 0.0)
-                red.destroy() // first destroy object to return to deinitialized state
-                red.dealloc(1) // deallocate the memory so that the object can go out of memory
-                green.destroy()
-                green.dealloc(1)
-                blue.destroy()
-                blue.dealloc(1)
-                alpha.destroy()
-                alpha.dealloc(1)
-                setBackgroundImage(imageWithColor(alphaedColor), forBarMetrics: UIBarMetrics.Default)
-                self.barStyle = .Default
-                self.shadowImage = UIImage()
-                self.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-                self.tintColor = UIColor.whiteColor()
-                self.translucent = true
+                let image = imageWithColor(afterBarTintColor)
                 
-                
+                setBackgroundImage(image, forBarMetrics: .Default)
+                shadowImage = UIImage()
+                //barStyle = .Default
             } else {
-                barTintColor = barOpacityColor!
+                let red = UnsafeMutablePointer<CGFloat>.alloc(1)
+                let green = UnsafeMutablePointer<CGFloat>.alloc(1)
+                let blue = UnsafeMutablePointer<CGFloat>.alloc(1)
+                let alpha = UnsafeMutablePointer<CGFloat>.alloc(1)
+                barTintColor?.getRed(red, green: green, blue: blue, alpha: alpha)
+                let afterRed = red.memory
+                let afterGreen = green.memory
+                let afterBlue = blue.memory
+                //let afterAlpha = alpha.memory
+                let afterBarTintColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: kDefaultNavigationBarAlpha)
+                let image = imageWithColor(afterBarTintColor)
+                setBackgroundImage(image, forBarMetrics: .Default)
+                shadowImage = UIImage()
+                //barStyle = .Default
             }
         }
     }
@@ -99,12 +115,12 @@ class SLNavigationBar: UINavigationBar {
         return image
     }
     
+    /*
     override var barTintColor: UIColor? {
         
         didSet {
-            
-            // if version greater than 7.0.3
-            if overrideOpacity != nil {
+            if #available(iOS 7.0.3, *) {
+                
                 // http://sketchytech.blogspot.tw/2014/08/unsafe-pointers-in-swift-first-look.html
                 // .alloc(1) allocate memory for one object
                 let red = UnsafeMutablePointer<CGFloat>.alloc(1)
@@ -112,6 +128,23 @@ class SLNavigationBar: UINavigationBar {
                 let blue = UnsafeMutablePointer<CGFloat>.alloc(1)
                 let alpha = UnsafeMutablePointer<CGFloat>.alloc(1)
                 barTintColor?.getRed(red, green: green, blue: blue, alpha: alpha)
+                let afterRed = red.memory
+                let afterGreen = green.memory
+                let afterBlue = blue.memory
+                let afterAlpha = alpha.memory
+
+                // if version greater than 7.0.3
+                if transparentBar != nil {
+                    
+                    let afterTintColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: 0.70)
+                    super.barTintColor = afterTintColor
+                } else if transparentBar == true {
+                    let afterTintColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: 0)
+                    super.barTintColor = afterTintColor
+                } else {
+                    let afterTintColor = UIColor(red: afterRed, green: afterGreen, blue: afterBlue, alpha: 1.0)
+                    super.barTintColor = afterTintColor
+                }
                 print("red:\(red),green:\(green),blue:\(blue),alpha:\(alpha)")
                 red.destroy() // first destroy object to return to deinitialized state
                 red.dealloc(1) // deallocate the memory so that the object can go out of memory
@@ -121,35 +154,17 @@ class SLNavigationBar: UINavigationBar {
                 blue.dealloc(1)
                 alpha.destroy()
                 alpha.dealloc(1)
-            }
-            //  iOS 7.0 benefits from the extra color layer
-            if colorLayer == nil {
-                colorLayer = CALayer()
-                colorLayer.opacity = kDefaultColorLayerOpacity
-                layer.addSublayer(colorLayer)
+                
+            } else if #available(iOS 7.0, *) {
+                //  iOS 7.0 benefits from the extra color layer
+                if colorLayer == nil {
+                    colorLayer = CALayer()
+                    colorLayer.opacity = kDefaultColorLayerOpacity
+                    layer.addSublayer(colorLayer)
+                }
+                self.colorLayer.backgroundColor = barTintColor?.CGColor
             }
             
-            super.barTintColor = self.barTintColor!
-            
         }
-    }
-    
-    override func layoutSubviews() {
-        
-        super.layoutSubviews()
-        
-        let yPoint = 0 - Int(kSpaceToCoverStatusBars)
-        
-        let boundHeight = Float(CGRectGetHeight(self.bounds))
-        
-        if colorLayer != nil {
-            colorLayer.frame = CGRectMake(0, CGFloat(yPoint), CGRectGetWidth(self.bounds), CGFloat(boundHeight + kSpaceToCoverStatusBars))
-            layer.insertSublayer(colorLayer, atIndex: 1)
-        }
-    }
-    
-    func displayColorLayer(display: Bool) {
-        colorLayer.hidden = !display
-    }
-    
+    }*/
 }

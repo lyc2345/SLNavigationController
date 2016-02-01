@@ -12,13 +12,14 @@ import UIKit
 class SLNavigationController: UINavigationController {
     
     var isOpacity: Bool = false
+    var barStyle: Int = 0
     
     init() {
         
         super.init(navigationBarClass: SLNavigationBar.self, toolbarClass: nil)
         let navigationBar = self.navigationBar as! SLNavigationBar
         navigationBar.slNavigationDelegate = self
-        navigationBar.overrideOpacity = false
+        navigationBar.transparentBar = false
         
     }
 
@@ -27,7 +28,7 @@ class SLNavigationController: UINavigationController {
         super.init(coder: aDecoder)
         let navigationBar = self.navigationBar as! SLNavigationBar
         navigationBar.slNavigationDelegate = self
-        navigationBar.overrideOpacity = false
+        navigationBar.transparentBar = false
         
     }
     
@@ -37,16 +38,24 @@ class SLNavigationController: UINavigationController {
 
         let navigationBar = self.navigationBar as! SLNavigationBar
         navigationBar.slNavigationDelegate = self
-        navigationBar.overrideOpacity = false
+        navigationBar.transparentBar = false
     }
-    
+
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        
+        /*
         switch isOpacity.hashValue {
         case 0:
-            return .LightContent
-        case 1:
             return .Default
+        case 1:
+            return .LightContent
+        default:
+            return .Default
+        }*/
+        switch barStyle {
+        case 0:
+            return .Default
+        case 1:
+            return .LightContent
         default:
             return .Default
         }
@@ -55,9 +64,7 @@ class SLNavigationController: UINavigationController {
 
 extension SLNavigationController: SLNavigationBarDelegate {
     
-    func makeStatusBar(option: Bool) {
-        
-        isOpacity = option
+    func makeStatusBarStyle(style: Int) {
+        barStyle = style
     }
-    
 }

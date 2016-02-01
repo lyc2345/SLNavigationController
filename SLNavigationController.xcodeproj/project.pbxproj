@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F6CCDF751C5F2BA40061B7D0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CCDF741C5F2BA40061B7D0 /* SecondViewController.swift */; };
 		F6FB54071C5CC10D00F4E177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB54061C5CC10D00F4E177 /* AppDelegate.swift */; };
 		F6FB54091C5CC10D00F4E177 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB54081C5CC10D00F4E177 /* ViewController.swift */; };
 		F6FB540C1C5CC10D00F4E177 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6FB540A1C5CC10D00F4E177 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F6CCDF741C5F2BA40061B7D0 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		F6FB54031C5CC10D00F4E177 /* SLNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB54061C5CC10D00F4E177 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB54081C5CC10D00F4E177 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				F6FB54061C5CC10D00F4E177 /* AppDelegate.swift */,
 				F6FB54081C5CC10D00F4E177 /* ViewController.swift */,
 				F6FB540A1C5CC10D00F4E177 /* Main.storyboard */,
+				F6CCDF741C5F2BA40061B7D0 /* SecondViewController.swift */,
 				F6FB540D1C5CC10D00F4E177 /* Assets.xcassets */,
 				F6FB540F1C5CC10D00F4E177 /* LaunchScreen.storyboard */,
 				F6FB54121C5CC10D00F4E177 /* Info.plist */,
@@ -274,6 +277,7 @@
 				F6FB54371C5CC13D00F4E177 /* SLNavigationBar.swift in Sources */,
 				F6FB54091C5CC10D00F4E177 /* ViewController.swift in Sources */,
 				F6FB54381C5CC13D00F4E177 /* SLNavigationController.swift in Sources */,
+				F6CCDF751C5F2BA40061B7D0 /* SecondViewController.swift in Sources */,
 				F6FB54071C5CC10D00F4E177 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +505,7 @@
 				F6FB542D1C5CC10D00F4E177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6FB542E1C5CC10D00F4E177 /* Build configuration list for PBXNativeTarget "SLNavigationControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +514,7 @@
 				F6FB54301C5CC10D00F4E177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6FB54311C5CC10D00F4E177 /* Build configuration list for PBXNativeTarget "SLNavigationControllerUITests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +523,7 @@
 				F6FB54331C5CC10D00F4E177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
